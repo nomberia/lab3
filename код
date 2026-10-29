@@ -1,0 +1,132 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    // Настройка вывода кириллицы в консоли (для Windows)
+    setlocale(LC_ALL, "Russian");
+    // Настройка вывода для красивого отображения копеек/штрафов (Задание 1)
+    cout.precision(2);
+    cout << fixed;
+
+    int choice;
+
+    do {
+        // Выводим меню в консоль
+        cout << "=========================================" << endl;
+        cout << "Выберите задание для выполнения:" << endl;
+        cout << "1 - Задание 1 (Подсчет штрафа через for)" << endl;
+        cout << "2 - Задание 2 (Учет книг через while)" << endl;
+        cout << "3 - Задание 3 (Проверка билета через do-while)" << endl;
+        cout << "4 - Задание 4 (Сетка хранения через вложенные for)" << endl;
+        cout << "0 - Выход из программы" << endl;
+        cout << "=========================================" << endl;
+        cout << "Ваш выбор: ";
+        cin >> choice;
+        cout << endl;
+
+        // Конструкция switch управляет вызовом нужного блока кода
+        switch (choice) {
+        case 1: {
+            cout << "=== ЗАДАНИЕ 1. Подсчет штрафа ===" << endl;
+            int n;
+            cout << "Введите число дней просрочки (1..30): ";
+            cin >> n;
+
+            double total_fine = 0.0;
+
+            for (int day = 1; day <= n; day++) {
+                double current_fine;
+                if (day <= 7) {
+                    current_fine = 0.5;
+                }
+                else {
+                    current_fine = 1.0;
+                }
+                total_fine += current_fine;
+                cout << "День " << day << ": штраф = " << current_fine << endl;
+            }
+            cout << "Общая сумма штрафа: " << total_fine << endl << endl;
+            break;
+        }
+
+        case 2: {
+            cout << "=== ЗАДАНИЕ 2. Учет выданных книг ===" << endl;
+            int books;
+            int total_books = 0;
+            int days_over_20 = 0;
+
+            cout << "Вводите количество книг за день (для окончания ввода введите -1):" << endl;
+
+            while (true) {
+                cin >> books;
+
+                if (books == -1) {
+                    break;
+                }
+
+                if (books < 0) {
+                    continue;
+                }
+
+                total_books += books;
+
+                if (books > 20) {
+                    days_over_20++;
+                }
+            }
+            cout << "Общее число книг: " << total_books << endl;
+            cout << "Число дней, когда выдали больше 20 книг: " << days_over_20 << endl << endl;
+            break;
+        }
+
+        case 3: {
+            cout << "=== ЗАДАНИЕ 3. Проверка читательского билета ===" << endl;
+            int ticket;
+
+            do {
+                cout << "Введите номер читательского билета (от 1 до 9999): ";
+                cin >> ticket;
+            } while (ticket < 1 || ticket > 9999);
+
+            if (ticket % 2 == 0) {
+                cout << "Номер билета " << ticket << " — чётный." << endl << endl;
+            }
+            else {
+                cout << "Номер билета " << ticket << " — нечётный." << endl << endl;
+            }
+            break;
+        }
+
+        case 4: {
+            cout << "=== ЗАДАНИЕ 4. Позиции хранения ===" << endl;
+            int shelves, positions;
+
+            cout << "Введите количество полок (shelves): ";
+            cin >> shelves;
+            cout << "Введите количество позиций (positions 1..10): ";
+            cin >> positions;
+
+            cout << "Сетка хранения:" << endl;
+            for (int s = 1; s <= shelves; s++) {
+                for (int p = 1; p <= positions; p++) {
+                    cout << s << "-" << p << " ";
+                }
+                cout << endl;
+            }
+            cout << endl;
+            break;
+        }
+        case 0:
+            cout << "Завершение работы. До свидания!" << endl;
+            break;
+
+        default:
+            cout << "Ошибка! Неверный пункт меню. Попробуйте еще раз." << endl << endl;
+            break;
+        }
+
+    } while (choice != 0);
+
+    return 0;
+}
